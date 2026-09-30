@@ -2,8 +2,11 @@ name: 🏗️ Build Armbian Trixie WiFi-ON Image
 
 on:
   workflow_dispatch:
-  release:
-    types: [created]
+    inputs:
+      upload_release:
+        description: 'Upload ke Release v1.0.0? (true/false)'
+        required: false
+        default: 'true'
 
 jobs:
   build:
@@ -22,10 +25,11 @@ jobs:
         with:
           name: armbian-trixie-wifion-image
           path: "*.img.gz"
-          retention-days: 7
+          retention-days: 30
 
       - name: Upload to Release
-        if: github.event_name == 'release'
+        if: github.event.inputs.upload_release == 'true'
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: v1.0.0
           files: "*.img.gz"
