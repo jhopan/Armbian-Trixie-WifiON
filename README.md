@@ -16,21 +16,24 @@ Lihat di [Releases](releases) untuk download file `.img.gz`.
 
 ## 🚀 Cara Pakai
 
-### Langkah 1: Pilih DTB yang Sesuai (PENTING!)
+### Langkah 1: Ganti DTB Sesuai STB Anda (PENTING!)
 
-Image ini defaultnya untuk **B860H**. Jika Anda menggunakan **HG680P**, Anda HARUS ganti DTB sebelum flash:
+Image ini default-nya untuk **B860H**. Jika Anda menggunakan **HG680P**, Anda WAJIB ganti DTB di file `uEnv.txt` sebelum flash.
 
 1. Flash image ke SD card pakai [Rufus](https://rufus.ie/) atau [balenaEtcher](https://www.balena.io/etcher/)
-2. Buka partisi BOOT (FAT32) di Windows Explorer
-3. Edit file `uEnv.txt` dengan Notepad
-4. Ganti baris `FDT=` sesuai STB Anda:
+2. Buka partisi **BOOT** (FAT32) di Windows Explorer
+3. Edit file **`uEnv.txt`** dengan Notepad
+4. Cari baris yang diawali `FDT=`, lalu ganti sesuai STB Anda:
 
-| STB | DTB yang dipakai |
-|-----|-------------------|
-| **B860H** (default) | `FDT=/dtb/amlogic/meson-gxl-s905x-b860h.dtb` |
-| **HG680P** | `FDT=/dtb/amlogic/meson-gxl-s905x-p212.dtb` |
+   | STB Anda | Isi baris `FDT=` di `uEnv.txt` |
+   |----------|---------------------------------|
+   | **B860H** (default) | `FDT=/dtb/amlogic/meson-gxl-s905x-b860h.dtb` |
+   | **HG680P** | `FDT=/dtb/amlogic/meson-gxl-s905x-p212.dtb` |
 
 5. Simpan file, eject SD card
+
+> 💡 Jika salah pilih DTB, STB tidak akan booting (layar hitam). Cabut SD card, edit `uEnv.txt` dari PC, lalu coba lagi.
+> 💡 Panduan ini juga tersimpan di dalam image di `/root/README-WifiON.txt`
 
 ### Langkah 2: Flash & Boot
 
@@ -38,8 +41,6 @@ Image ini defaultnya untuk **B860H**. Jika Anda menggunakan **HG680P**, Anda HAR
 2. Tancapkan power, tunggu first boot (2-3 menit)
 3. Login: `root` / `1234`
 4. WiFi langsung ON! Cek dengan: `ip link show wlan0`
-
-> 💡 Panduan ini juga ada di dalam image di `/root/README-WifiON.txt`
 
 ## 🔒 Kernel Locked
 
