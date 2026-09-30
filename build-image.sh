@@ -21,7 +21,7 @@ echo "=========================================================="
 # 1. Install dependencies
 echo "[1/7] Installing dependencies..."
 apt-get update -qq
-apt-get install -y -qq wget gzip parted losetup mount
+apt-get install -y -qq wget gzip parted
 
 # 2. Download base image
 echo "[2/7] Downloading base image..."
