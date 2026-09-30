@@ -1,0 +1,31 @@
+name: 🏗️ Build Armbian Trixie WiFi-ON Image
+
+on:
+  workflow_dispatch:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build image
+        run: |
+          chmod +x build-image.sh
+          sudo bash build-image.sh
+
+      - name: Upload image to artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: armbian-trixie-wifion-image
+          path: "*.img.gz"
+          retention-days: 7
+
+      - name: Upload to Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "*.img.gz"
