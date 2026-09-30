@@ -114,6 +114,41 @@ echo "=========================================================="
 echo "  Image siap! Compressing..."
 echo "=========================================================="
 
+# Buat file panduan DTB di /root/
+cat > "/mnt/armbian/root/README-WifiON.txt" << 'GUIDE'
+==========================================================
+  CARA GANTI DTB UNTUK STB BERBEDA (B860H / HG680P)
+==========================================================
+
+Image ini defaultnya untuk B860H.
+Jika Anda menggunakan HG680P, ikuti langkah berikut:
+
+[ WINDOWS / SEBELUM FLASH ]
+1. Flash image ke SD card
+2. Buka partisi BOOT (FAT32) di Windows Explorer
+3. Edit file uEnv.txt dengan Notepad
+4. Ganti baris FDT:
+   DARI: FDT=/dtb/amlogic/meson-gxl-s905x-b860h.dtb
+   JADI: FDT=/dtb/amlogic/meson-gxl-s905x-p212.dtb
+5. Simpan, eject SD card, colok ke HG680P
+
+[ LINUX / SETELAH BOOT ]
+Jika STB sudah booting tapi layar hitam / tidak muncul apa-apa,
+kemungkinan DTB salah. Edit dari PC:
+1. Cabut SD card, colok ke PC
+2. Edit /boot/uEnv.txt di partisi FAT32
+3. Ganti FDT=/dtb/amlogic/meson-gxl-s905x-b860h.dtb
+   JADI FDT=/dtb/amlogic/meson-gxl-s905x-p212.dtb
+4. Simpan, colok lagi ke STB
+
+==========================================================
+  RINGKASAN DTB
+==========================================================
+  B860H  → FDT=/dtb/amlogic/meson-gxl-s905x-b860h.dtb
+  HG680P → FDT=/dtb/amlogic/meson-gxl-s905x-p212.dtb
+==========================================================
+GUIDE
+
 # Unmount
 sync
 umount /mnt/armbian/boot 2>/dev/null || true

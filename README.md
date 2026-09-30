@@ -16,12 +16,30 @@ Lihat di [Releases](releases) untuk download file `.img.gz`.
 
 ## 🚀 Cara Pakai
 
-1. Download file `.img.gz` dari [Releases](releases)
-2. Flash ke SD card pakai [Rufus](https://rufus.ie/) atau [balenaEtcher](https://www.balena.io/etcher/)
-3. Colok SD card ke STB (B860H / HG680P)
-4. Tancapkan power, tunggu first boot (2-3 menit)
-5. Login: `root` / `1234`
-6. WiFi langsung ON! Cek dengan: `ip link show wlan0`
+### Langkah 1: Pilih DTB yang Sesuai (PENTING!)
+
+Image ini defaultnya untuk **B860H**. Jika Anda menggunakan **HG680P**, Anda HARUS ganti DTB sebelum flash:
+
+1. Flash image ke SD card pakai [Rufus](https://rufus.ie/) atau [balenaEtcher](https://www.balena.io/etcher/)
+2. Buka partisi BOOT (FAT32) di Windows Explorer
+3. Edit file `uEnv.txt` dengan Notepad
+4. Ganti baris `FDT=` sesuai STB Anda:
+
+| STB | DTB yang dipakai |
+|-----|-------------------|
+| **B860H** (default) | `FDT=/dtb/amlogic/meson-gxl-s905x-b860h.dtb` |
+| **HG680P** | `FDT=/dtb/amlogic/meson-gxl-s905x-p212.dtb` |
+
+5. Simpan file, eject SD card
+
+### Langkah 2: Flash & Boot
+
+1. Colok SD card ke STB
+2. Tancapkan power, tunggu first boot (2-3 menit)
+3. Login: `root` / `1234`
+4. WiFi langsung ON! Cek dengan: `ip link show wlan0`
+
+> 💡 Panduan ini juga ada di dalam image di `/root/README-WifiON.txt`
 
 ## 🔒 Kernel Locked
 
